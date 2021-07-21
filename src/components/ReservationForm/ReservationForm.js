@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import './ReservationForm.css'
 
 class ReservationForm extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             name:'',
             date:'',
@@ -16,6 +16,16 @@ class ReservationForm extends Component {
         this.setState({
             [event.target.name]: event.target.value
         })
+    }
+
+    handleClick(event) {
+        event.preventDefault()
+        const id = Date.now()
+        const newReservation = {
+            ...this.state,
+            id
+        }
+        this.props.addReservation(newReservation)
     }
 
     render() {
@@ -57,7 +67,7 @@ class ReservationForm extends Component {
                     onChange = {(event) => this.handleChange(event)}
                 />
             </label>
-            <button>Make Reservation</button>
+            <button onClick={(event) => this.handleClick(event)}>Make Reservation</button>
         </form>
 
         )
