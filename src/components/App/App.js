@@ -47,6 +47,9 @@ class App extends Component {
         reservations: [...this.state.reservations, data]
       })
     })
+    .catch(error => {
+      this.setState({error})
+    })
     
   }
 
