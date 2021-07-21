@@ -53,6 +53,30 @@ class App extends Component {
     
   }
 
+  deleteReservation = (id) => {
+    fetch(`/api/v1/reservations/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw Error()
+      } else {
+        return response.json()
+      }
+    })
+    .then(data => {
+      this.setState({
+        reservations: data
+      })
+    })
+    .catch(error => {
+      this.setState({error})
+    })
+  }
+
   render() {
     return (
       <div className="App">
