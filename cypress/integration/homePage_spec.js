@@ -1,6 +1,40 @@
 describe('Home Page User Flow', () => {
     beforeEach(() => {
+        cy.intercept('http://localhost:3001/api/v1/reservations', {
+            statusCode: 200,
+            body: [
+                {
+                    "id": "1",
+                    "name": "Christie",
+                    "date": "12/29",
+                    "time": "7:00",
+                    "number": "12"
+                  },
+                  {
+                    "id": "2",
+                    "name": "Leta",
+                    "date": "4/5",
+                    "time": "7:00",
+                    "number": "2"
+                  },
+                  {
+                    "id": "3",
+                    "name": "Pam",
+                    "date": "1/21",
+                    "time": "6:00",
+                    "number": "4"
+                  },
+                  {
+                    "id": "4",
+                    "name": "Khalid",
+                    "date": "5/9",
+                    "time": "7:30",
+                    "number": "7"
+                  }
+            ]
+        })
         cy.visit('http://localhost:3000')
+      
     }) 
 
     it('Should show all reservations on homepage', () => {
@@ -8,7 +42,7 @@ describe('Home Page User Flow', () => {
         .contains('Turing Cafe Reservations')
         cy.get('form > button').contains('Make Reservation')
         cy.get('label').should('have.length', 4)
-        cy.get('article').should('have.length', 9)
+        cy.get('article').should('have.length', 4)
     })
 
     it ('Should be able to type into the form and see the form updated', () => {
