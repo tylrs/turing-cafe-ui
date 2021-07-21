@@ -1,6 +1,7 @@
 describe('Home Page User Flow', () => {
-    beforeEach(() => {
-        cy.intercept('http://localhost:3001/api/v1/reservations', {
+
+    it('Should show all reservations on homepage', () => {
+        cy.intercept('GET', 'http://localhost:3001/api/v1/reservations', {
             statusCode: 200,
             body: [
                 {
@@ -34,10 +35,6 @@ describe('Home Page User Flow', () => {
             ]
         })
         cy.visit('http://localhost:3000')
-      
-    }) 
-
-    it('Should show all reservations on homepage', () => {
         cy.get('body')
         .contains('Turing Cafe Reservations')
         cy.get('form > button').contains('Make Reservation')
@@ -46,6 +43,40 @@ describe('Home Page User Flow', () => {
     })
 
     it ('Should be able to type into the form and see the form updated', () => {
+        cy.intercept('GET', 'http://localhost:3001/api/v1/reservations', {
+            statusCode: 200,
+            body: [
+                {
+                    "id": "1",
+                    "name": "Christie",
+                    "date": "12/29",
+                    "time": "7:00",
+                    "number": "12"
+                  },
+                  {
+                    "id": "2",
+                    "name": "Leta",
+                    "date": "4/5",
+                    "time": "7:00",
+                    "number": "2"
+                  },
+                  {
+                    "id": "3",
+                    "name": "Pam",
+                    "date": "1/21",
+                    "time": "6:00",
+                    "number": "4"
+                  },
+                  {
+                    "id": "4",
+                    "name": "Khalid",
+                    "date": "5/9",
+                    "time": "7:30",
+                    "number": "7"
+                  }
+            ]
+        })
+        cy.visit('http://localhost:3000')
         cy.get('label[name="name"] > input')
         .type('Taylor')
         cy.get('label[name="name"] > input')
@@ -65,6 +96,50 @@ describe('Home Page User Flow', () => {
     })
 
     it ('Should be able to add a new reservation to the page', () => {
+        cy.intercept('GET', 'http://localhost:3001/api/v1/reservations', {
+            statusCode: 200,
+            body: [
+                {
+                    "id": "1",
+                    "name": "Christie",
+                    "date": "12/29",
+                    "time": "7:00",
+                    "number": "12"
+                  },
+                  {
+                    "id": "2",
+                    "name": "Leta",
+                    "date": "4/5",
+                    "time": "7:00",
+                    "number": "2"
+                  },
+                  {
+                    "id": "3",
+                    "name": "Pam",
+                    "date": "1/21",
+                    "time": "6:00",
+                    "number": "4"
+                  },
+                  {
+                    "id": "4",
+                    "name": "Khalid",
+                    "date": "5/9",
+                    "time": "7:30",
+                    "number": "7"
+                  }
+            ]
+        })
+        cy.intercept('POST', 'http://localhost:3001/api/v1/reservations', {
+            statusCode: 200,
+            body: {
+                "id": "5",
+                "name": "Taylor",
+                "date": "05/15",
+                "time": "4:00",
+                "number": "200"
+            }
+        })
+        cy.visit('http://localhost:3000')
         cy.get('label[name="name"] > input')
         .type('Taylor')
         cy.get('label[name="date"] > input')
@@ -75,14 +150,14 @@ describe('Home Page User Flow', () => {
         .type('200')
         cy.get('form > button')
         .click()
-        cy.get('article').should('have.length', 10)
-        cy.get('.reservation-container > :nth-child(10)')
+        cy.get('article').should('have.length', 5)
+        cy.get('.reservation-container > :nth-child(5)')
         .contains('Taylor')
-        cy.get('.reservation-container > :nth-child(10)')
+        cy.get('.reservation-container > :nth-child(5)')
         .contains('05/15')
-        cy.get('.reservation-container > :nth-child(10)')
+        cy.get('.reservation-container > :nth-child(5)')
         .contains('4:00')
-        cy.get('.reservation-container > :nth-child(10)')
+        cy.get('.reservation-container > :nth-child(5)')
         .contains('200')
     })
 })
