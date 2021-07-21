@@ -1,0 +1,8 @@
+.reservation-card {
+    background: rgb(255,255,255);
+    border: teal 4px solid;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 4px;
+}
