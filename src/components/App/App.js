@@ -54,15 +54,15 @@ class App extends Component {
   }
 
   deleteReservation = (id) => {
-    fetch(`/api/v1/reservations/${id}`, {
+    fetch(`http://localhost:3001/api/v1/reservations/${id}`, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-type': 'application/json'
       }
     })
     .then(response => {
       if (!response.ok) {
-        throw Error()
+        throw Error(response.statusText)
       } else {
         return response.json()
       }
@@ -73,7 +73,9 @@ class App extends Component {
       })
     })
     .catch(error => {
-      this.setState({error})
+      this.setState({
+        error
+      })
     })
   }
 
@@ -85,7 +87,10 @@ class App extends Component {
           <ReservationForm addReservation={this.addReservation}/>
         </div>
         <div className='resy-container'>
-          <Reservations reservationData={this.state.reservations}/>
+          <Reservations 
+            reservationData={this.state.reservations} 
+            deleteReservation={this.deleteReservation}
+          />
         </div>
       </div>
     )
