@@ -6,9 +6,26 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      reservations: []
+      reservations: [],
+      error: ''
     }
   }
+
+  componentDidMount() {
+    fetch('http://localhost:3001/api/v1/reservations')
+    .then(response => response.json)
+    .then(data => {
+      this.setState({
+        reservations: data
+      })
+    })
+    .catch(error => {
+      this.setState({
+        error
+      })
+    })
+  }
+
   render() {
     return (
       <div className="App">
