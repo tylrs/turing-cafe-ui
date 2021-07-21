@@ -1,6 +1,6 @@
-import React, {component} from 'react'
+import React, {Component} from 'react'
 
-class ReservationForm extends component {
+class ReservationForm extends Component {
     constructor() {
         super()
         this.state = {
@@ -9,6 +9,12 @@ class ReservationForm extends component {
             time:'',
             number: 0
         }
+    }
+
+    handleChange(event) {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
     }
 
     render() {
@@ -20,7 +26,7 @@ class ReservationForm extends component {
                     placeholder='name'
                     name='name'
                     value={this.state.name}
-                    onChange = {(event) => handleChange(event)}
+                    onChange = {(event) => this.handleChange(event)}
                 />
             </label>
             <label>
@@ -29,7 +35,7 @@ class ReservationForm extends component {
                     placeholder='Date (mm/dd)'
                     name='date'
                     value={this.state.date}
-                    onChange = {(event) => handleChange(event)}
+                    onChange = {(event) => this.handleChange(event)}
                 />
             </label>
             <label>
@@ -38,7 +44,7 @@ class ReservationForm extends component {
                     placeholder='Time'
                     name='time'
                     value={this.state.time}
-                    onChange = {(event) => handleChange(event)}
+                    onChange = {(event) => this.handleChange(event)}
                 />
             </label>
             <label>
@@ -47,7 +53,7 @@ class ReservationForm extends component {
                     placeholder='Number of Guests'
                     name='number'
                     value={this.state.number}
-                    onChange = {(event) => handleChange(event)}
+                    onChange = {(event) => this.handleChange(event)}
                 />
             </label>
             <button>Make Reservation</button>
