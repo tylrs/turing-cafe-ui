@@ -8,7 +8,7 @@ class ReservationForm extends Component {
             name:'',
             date:'',
             time:'',
-            number: 0
+            number: ''
         }
     }
 
@@ -31,7 +31,7 @@ class ReservationForm extends Component {
     render() {
         return (
         <form>
-            <label>
+            <label name='name'>
                 <input 
                     type='text'
                     placeholder='name'
@@ -40,7 +40,7 @@ class ReservationForm extends Component {
                     onChange = {(event) => this.handleChange(event)}
                 />
             </label>
-            <label>
+            <label name='date'>
                 <input 
                     type='text'
                     placeholder='Date (mm/dd)'
@@ -49,7 +49,7 @@ class ReservationForm extends Component {
                     onChange = {(event) => this.handleChange(event)}
                 />
             </label>
-            <label>
+            <label name='time'>
                 <input 
                     type='text'
                     placeholder='Time'
@@ -58,7 +58,7 @@ class ReservationForm extends Component {
                     onChange = {(event) => this.handleChange(event)}
                 />
             </label>
-            <label>
+            <label name='number'>
                 <input 
                     type='number'
                     placeholder='Number of Guests'
